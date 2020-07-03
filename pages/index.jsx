@@ -24,8 +24,8 @@ import {
 import { FaSortAlphaDown, FaSortAlphaUp, FaFilter } from 'react-icons/fa';
 
 export default function Index({ teams }) {
-  const [range, setRange] = useState([0, 9]);
-  const [rangeIncrement] = useState(10);
+  const [rangeIncrement] = useState(20);
+  const [range, setRange] = useState([0, rangeIncrement - 1]);
   const [ascending, setAscending] = useState(true);
   const [filter, setFilter] = useState();
 
@@ -66,6 +66,9 @@ export default function Index({ teams }) {
                   <Radio value="Club">Club</Radio>
                   <Radio value="University">University</Radio>
                 </RadioGroup>
+                <Button size="md" ml={4} mt={3} mb={2} variant="link" fontWeight={400} onClick={() => setFilter()}>
+                  Clear
+                </Button>
               </MenuGroup>
             </MenuList>
           </Menu>
