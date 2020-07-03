@@ -13,13 +13,21 @@ import {
   Link,
   Icon,
   Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuGroup,
+  Radio,
+  RadioGroup,
 } from '@chakra-ui/core';
-import { FaSortAlphaDown, FaSortAlphaUp } from 'react-icons/fa';
+import { FaSortAlphaDown, FaSortAlphaUp, FaFilter } from 'react-icons/fa';
 
 export default function Index({ teams }) {
   const [range, setRange] = useState([0, 9]);
   const [rangeIncrement] = useState(10);
   const [ascending, setAscending] = useState(true);
+  const [filter, setFilter] = useState();
 
   const next = () => setRange([range[0] + rangeIncrement, range[1] + rangeIncrement]);
   const prev = () => setRange([range[0] - rangeIncrement, range[1] - rangeIncrement]);
@@ -29,6 +37,10 @@ export default function Index({ teams }) {
     return a.name.toLowerCase() > b.name.toLowerCase() ? x : y;
   };
 
+  const typeFilter = (({ type }) => (filter ? type === filter : true));
+
+  const teamsFilteredLength = teams.filter(typeFilter).length;
+
   return (
     <Flex justify="center" width="100%">
       <Stack spacing={12} px={[10, 10, 20, 200]} pt={12} align="center" width="100%">
@@ -36,13 +48,30 @@ export default function Index({ teams }) {
           <Heading textAlign="center">Club Ultimate UK</Heading>
           <Heading textAlign="center" size="md" fontWeight={600}>Team Directory</Heading>
         </Stack>
-        <Flex width="100%">
-          <Button leftIcon={ascending ? FaSortAlphaDown : FaSortAlphaUp} onClick={() => setAscending(!ascending)}>
+        <Stack isInline spacing={4} justify="space-between" width="100%">
+          <Button
+            leftIcon={ascending ? FaSortAlphaDown : FaSortAlphaUp}
+            onClick={() => setAscending(!ascending)}
+          >
             Sort
           </Button>
-        </Flex>
+          <Menu>
+            <MenuButton as={Button} rightIcon={FaFilter}>
+              Filter
+            </MenuButton>
+            <MenuList>
+              <MenuGroup title="Type">
+                <RadioGroup spacing={0} onChange={(e) => setFilter(e.target.value)} value={filter} ml={4}>
+                  <Radio value="School">School</Radio>
+                  <Radio value="Club">Club</Radio>
+                  <Radio value="University">University</Radio>
+                </RadioGroup>
+              </MenuGroup>
+            </MenuList>
+          </Menu>
+        </Stack>
         <Accordion allowMultiple width="100%">
-          {teams.sort(alphabeticalSort).slice(...range).map(({
+          {teams.sort(alphabeticalSort).filter(typeFilter).slice(...range).map(({
             name, type, url, location,
           }, index) => (
             <AccordionItem key={`${name}-${index}`}>
@@ -85,13 +114,13 @@ export default function Index({ teams }) {
             {' '}
             to
             {' '}
-            {range[1] >= teams.length ? teams.length : range[1] + 1}
+            {range[1] >= teamsFilteredLength ? teamsFilteredLength : range[1] + 1}
             {' '}
             of
             {' '}
-            {teams.length}
+            {teamsFilteredLength}
           </Text>
-          <Button rightIcon="arrow-forward" variantColor="gray" variant="outline" isDisabled={range[1] >= teams.length} onClick={next}>
+          <Button rightIcon="arrow-forward" variantColor="gray" variant="outline" isDisabled={range[1] >= teamsFilteredLength} onClick={next}>
             Next
           </Button>
         </Flex>
