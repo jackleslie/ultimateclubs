@@ -23,7 +23,10 @@ export default function Index({ teams }) {
 
   return (
     <Stack spacing={12} px={12} pt={12} align="center">
-      <Heading textAlign="center">Club Ultimate UK</Heading>
+      <Stack spacing={0}>
+        <Heading textAlign="center">Club Ultimate UK</Heading>
+        <Heading textAlign="center" size="md" fontWeight={600}>Team Directory</Heading>
+      </Stack>
       <Accordion allowMultiple maxWidth="500px" width="100%">
         {teams.slice(...range).map(({
           name, type, url, location,
