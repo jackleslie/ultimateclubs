@@ -43,7 +43,7 @@ export default function Index({ teams }) {
 
   return (
     <Flex justify="center" width="100%">
-      <Stack spacing={12} px={[10, 10, 20, 200]} pt={12} align="center" width="100%">
+      <Stack spacing={12} px={[4, 10, 20, 200]} pt={12} align="center" width="100%">
         <Stack spacing={0}>
           <Heading textAlign="center">Club Ultimate UK</Heading>
           <Heading textAlign="center" size="md" fontWeight={600}>Team Directory</Heading>
@@ -107,11 +107,11 @@ export default function Index({ teams }) {
             </AccordionItem>
           ))}
         </Accordion>
-        <Flex align="center" justify="space-between" width="100%">
+        <Stack isInline width="100%" justify="space-between" align="center" spacing={5}>
           <Button rightIcon="arrow-back" variantColor="gray" variant="outline" isDisabled={range[0] === 0} onClick={prev}>
             Prev
           </Button>
-          <Text textAlign="center">
+          <Text textAlign="center" fontSize={['xs', 'md']}>
             Showing
             {' '}
             {range[0] + 1}
@@ -127,7 +127,7 @@ export default function Index({ teams }) {
           <Button rightIcon="arrow-forward" variantColor="gray" variant="outline" isDisabled={range[1] >= teamsFilteredLength} onClick={next}>
             Next
           </Button>
-        </Flex>
+        </Stack>
         <style jsx global>
           {`
           a {
