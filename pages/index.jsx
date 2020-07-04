@@ -16,7 +16,7 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem,
+  Input,
   MenuGroup,
   Radio,
   RadioGroup,
@@ -48,16 +48,17 @@ export default function Index({ teams }) {
           <Heading textAlign="center">Club Ultimate UK</Heading>
           <Heading textAlign="center" size="md" fontWeight={600}>Team Directory</Heading>
         </Stack>
-        <Stack isInline spacing={4} justify="space-between" width="100%">
+        <Stack isInline spacing={4} width="100%">
           <Button
-            leftIcon={ascending ? FaSortAlphaDown : FaSortAlphaUp}
             onClick={() => setAscending(!ascending)}
+            width="10%"
           >
-            Sort
+            <Box as={ascending ? FaSortAlphaDown : FaSortAlphaUp} />
           </Button>
+          <Input aria-label="Team name input" placeholder="Team name" />
           <Menu>
-            <MenuButton as={Button} rightIcon={FaFilter}>
-              Filter
+            <MenuButton as={Button} width="10%">
+              <Box as={FaFilter} />
             </MenuButton>
             <MenuList>
               <MenuGroup title="Type">
