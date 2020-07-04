@@ -62,7 +62,12 @@ export default function Index({ teams }) {
             </MenuButton>
             <MenuList>
               <MenuGroup title="Type">
-                <RadioGroup spacing={0} onChange={(e) => setFilter(e.target.value)} value={filter} ml={4}>
+                <RadioGroup
+                  spacing={0}
+                  onChange={(e) => setFilter(e.target.value)}
+                  value={filter}
+                  ml={4}
+                >
                   <Radio value="School">School</Radio>
                   <Radio value="Club">Club</Radio>
                   <Radio value="University">University</Radio>
@@ -111,13 +116,9 @@ export default function Index({ teams }) {
           <Button rightIcon="arrow-back" variantColor="gray" variant="outline" isDisabled={range[0] === 0} onClick={prev}>
             Prev
           </Button>
-          <Text textAlign="center" fontSize={['xs', 'md']}>
-            Showing
-            {' '}
+          <Text textAlign="center" fontSize={['sm', 'md']}>
             {range[0] + 1}
-            {' '}
-            to
-            {' '}
+            -
             {range[1] >= teamsFilteredLength ? teamsFilteredLength : range[1] + 1}
             {' '}
             of
