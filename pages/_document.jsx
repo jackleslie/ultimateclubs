@@ -14,7 +14,7 @@ export default class MyDocument extends Document {
           <meta property="og:image" content="/favicon.ico" />
           <meta
             property="og:description"
-            content="Directory of UK Ultimate Teams."
+            content="Directory of Ultimate Clubs in the UK"
           />
           <meta property="og:title" content="UK Ultimate Team Directory" />
           <link rel="icon" href="/favicon.ico" />
