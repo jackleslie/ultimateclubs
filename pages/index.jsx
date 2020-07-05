@@ -68,10 +68,10 @@ export default function Index({ clubs }) {
   return (
     <Flex justify="center" width="100%">
       <Head>
-        <title>UK Ultimate Club Directory</title>
+        <title>UK Ultimate Clubs</title>
       </Head>
       <Stack spacing={12} px={[4, 10, 20, 200]} pt={12} align="center" width="100%">
-        <Heading textAlign="center">UK Ultimate Club Directory</Heading>
+        <Heading textAlign="center">UK Ultimate Clubs</Heading>
         <Stack isInline spacing={[2, 3, 4]} width="100%">
           <Button
             onClick={() => setAscending(!ascending)}
