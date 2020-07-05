@@ -24,6 +24,7 @@ import {
   CloseButton,
   Badge,
   Checkbox,
+  CheckboxGroup,
 } from '@chakra-ui/core';
 import { FaSortAlphaDown, FaSortAlphaUp, FaFilter } from 'react-icons/fa';
 
@@ -36,9 +37,6 @@ export default function Index({ teams }) {
   const [search, setSearch] = useState('');
 
   const handleTypeFilterChange = (e) => setTypeFilter(e.target.value);
-  const handleDivisionFilterChange = (e) => {
-    setDivisionFilter([...divisionFilter, e.target.value]);
-  };
   const handleSearchChange = (e) => setSearch(e.target.value);
 
   const next = () => setRange([range[0] + rangeIncrement, range[1] + rangeIncrement]);
@@ -120,53 +118,31 @@ export default function Index({ teams }) {
                 </Stack>
               </MenuGroup>
               <MenuGroup title="Divisions">
-                <Stack
-                  spacing={0}
+                <CheckboxGroup
                   ml={4}
+                  spacing={0}
+                  value={divisionFilter}
+                  onChange={setDivisionFilter}
                 >
-                  <Checkbox
-                    value="school"
-                    isChecked={divisionFilter.includes('school')}
-                    onChange={handleDivisionFilterChange}
-                  >
+                  <Checkbox value="school">
                     School
                   </Checkbox>
-                  <Checkbox
-                    value="uni"
-                    isChecked={divisionFilter.includes('uni')}
-                    onChange={handleDivisionFilterChange}
-                  >
+                  <Checkbox value="uni">
                     Uni
                   </Checkbox>
-                  <Checkbox
-                    value="open"
-                    isChecked={divisionFilter.includes('open')}
-                    onChange={handleDivisionFilterChange}
-                  >
+                  <Checkbox value="open">
                     Open
                   </Checkbox>
-                  <Checkbox
-                    value="women's"
-                    isChecked={divisionFilter.includes('women\'s')}
-                    onChange={handleDivisionFilterChange}
-                  >
+                  <Checkbox value="women's">
                     Women
                   </Checkbox>
-                  <Checkbox
-                    value="mixed"
-                    isChecked={divisionFilter.includes('mixed')}
-                    onChange={handleDivisionFilterChange}
-                  >
+                  <Checkbox value="mixed">
                     Mixed
                   </Checkbox>
-                  <Checkbox
-                    value="masters"
-                    isChecked={divisionFilter.includes('masters')}
-                    onChange={handleDivisionFilterChange}
-                  >
+                  <Checkbox value="masters">
                     Masters
                   </Checkbox>
-                </Stack>
+                </CheckboxGroup>
               </MenuGroup>
               <Button
                 size="md"
