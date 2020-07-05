@@ -17,8 +17,11 @@ import {
   MenuButton,
   MenuList,
   Input,
+  InputRightElement,
+  InputGroup,
   MenuGroup,
   Radio,
+  CloseButton,
 } from '@chakra-ui/core';
 import { FaSortAlphaDown, FaSortAlphaUp, FaFilter } from 'react-icons/fa';
 
@@ -66,7 +69,14 @@ export default function Index({ teams }) {
           >
             <Box as={ascending ? FaSortAlphaDown : FaSortAlphaUp} />
           </Button>
-          <Input aria-label="Team name input" placeholder="Team name" value={search} onChange={handleSearchChange} />
+          <InputGroup width="100%">
+            <Input aria-label="Team name input" placeholder="Team name" value={search} onChange={handleSearchChange} />
+            {search.length > 0 ? (
+              <InputRightElement>
+                <CloseButton onClick={() => setSearch('')} />
+              </InputRightElement>
+            ) : null}
+          </InputGroup>
           <Menu>
             <MenuButton as={Button} width="10%" p={0}>
               <Box as={FaFilter} />
