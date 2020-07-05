@@ -27,7 +27,7 @@ import {
   Checkbox,
   CheckboxGroup,
 } from '@chakra-ui/core';
-import { FaSortAlphaDown, FaSortAlphaUp, FaFilter } from 'react-icons/fa';
+import { FaSortAlphaDown, FaSortAlphaDownAlt, FaFilter } from 'react-icons/fa';
 
 export default function Index({ teams }) {
   const [rangeIncrement] = useState(20);
@@ -75,7 +75,7 @@ export default function Index({ teams }) {
             width="10%"
             p={0}
           >
-            <Box as={ascending ? FaSortAlphaDown : FaSortAlphaUp} />
+            <Box as={ascending ? FaSortAlphaDown : FaSortAlphaDownAlt} />
           </Button>
           <InputGroup width="100%">
             <Input aria-label="Search input" placeholder="Search by team name or location" value={search} onChange={handleSearchChange} />
