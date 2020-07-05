@@ -26,10 +26,13 @@ import {
   Badge,
   Checkbox,
   CheckboxGroup,
+  List,
+  ListItem,
 } from '@chakra-ui/core';
 import { FaSortAlphaDown, FaSortAlphaDownAlt, FaFilter } from 'react-icons/fa';
+import Head from 'next/head';
 
-export default function Index({ teams }) {
+export default function Index({ clubs }) {
   const [rangeIncrement] = useState(20);
   const [range, setRange] = useState([0, rangeIncrement - 1]);
   const [ascending, setAscending] = useState(true);
@@ -54,21 +57,21 @@ export default function Index({ teams }) {
     name.toLowerCase().indexOf(search.toLowerCase()) >= 0 || location.toLowerCase().indexOf(search.toLowerCase()) >= 0)
   );
 
-  const teamsFilteredLength = teams.filter(typeFilterFunc).filter(divisionFilterFunc).filter(searchFunc).length;
+  const clubsFilteredLength = clubs.filter(typeFilterFunc).filter(divisionFilterFunc).filter(searchFunc).length;
 
-  const showMessage = () => (teamsFilteredLength > 0 ? (
-    `${range[0] + 1}-${range[1] >= teamsFilteredLength ? teamsFilteredLength : range[1] + 1} of ${teamsFilteredLength}`
+  const showMessage = () => (clubsFilteredLength > 0 ? (
+    `${range[0] + 1}-${range[1] >= clubsFilteredLength ? clubsFilteredLength : range[1] + 1} of ${clubsFilteredLength}`
   ) : (
-    'No teams'
+    'No clubs'
   ));
 
   return (
     <Flex justify="center" width="100%">
+      <Head>
+        <title>UK Ultimate Club Directory</title>
+      </Head>
       <Stack spacing={12} px={[4, 10, 20, 200]} pt={12} align="center" width="100%">
-        <Stack spacing={0}>
-          <Heading textAlign="center">Club Ultimate UK</Heading>
-          <Heading textAlign="center" size="md" fontWeight={600}>Team Directory</Heading>
-        </Stack>
+        <Heading textAlign="center">UK Ultimate Club Directory</Heading>
         <Stack isInline spacing={[2, 3, 4]} width="100%">
           <Button
             onClick={() => setAscending(!ascending)}
@@ -78,7 +81,7 @@ export default function Index({ teams }) {
             <Box as={ascending ? FaSortAlphaDown : FaSortAlphaDownAlt} />
           </Button>
           <InputGroup width="100%">
-            <Input aria-label="Search input" placeholder="Search by team name or location" value={search} onChange={handleSearchChange} />
+            <Input aria-label="Search input" placeholder="Search by club name or location" value={search} onChange={handleSearchChange} />
             {search.length > 0 ? (
               <InputRightElement>
                 <CloseButton onClick={() => setSearch('')} />
@@ -156,7 +159,7 @@ export default function Index({ teams }) {
           </Menu>
         </Stack>
         <Accordion allowMultiple width="100%">
-          {teams.sort(alphabeticalSort).filter(typeFilterFunc).filter(divisionFilterFunc).filter(searchFunc)
+          {clubs.sort(alphabeticalSort).filter(typeFilterFunc).filter(divisionFilterFunc).filter(searchFunc)
             .slice(...range)
             .map(({
               name, type, url, location, divisions,
@@ -174,12 +177,16 @@ export default function Index({ teams }) {
                 <AccordionPanel pb={4}>
                   <Stack spacing={3}>
                     <Box>
-                      <Heading size="xs">UK Ultimate team URL</Heading>
-                      <Link href={url} isExternal>
-                        {url}
-                        {' '}
-                        {url !== 'No URL available' ? <Icon name="external-link" mx="2px" /> : null}
-                      </Link>
+                      <Heading size="xs">URLs</Heading>
+                      <List styleType="disc">
+                        <ListItem>
+                          <Link href={url} isExternal>
+                            UK Ultimate
+                            {' '}
+                            {url !== 'No URL available' ? <Icon name="external-link" mx="2px" /> : null}
+                          </Link>
+                        </ListItem>
+                      </List>
                     </Box>
                     <Box>
                       <Heading size="xs">Divisions</Heading>
@@ -207,7 +214,7 @@ export default function Index({ teams }) {
           <Text textAlign="center" fontSize={['sm', 'md']}>
             {showMessage()}
           </Text>
-          <Button rightIcon="arrow-forward" variantColor="gray" variant="outline" isDisabled={range[1] >= teamsFilteredLength - 1} onClick={next}>
+          <Button rightIcon="arrow-forward" variantColor="gray" variant="outline" isDisabled={range[1] >= clubsFilteredLength - 1} onClick={next}>
             Next
           </Button>
         </Stack>
@@ -229,9 +236,9 @@ export default function Index({ teams }) {
 
 export async function getStaticProps() {
   // eslint-disable-next-line global-require
-  const teams = require('../db/teams.json');
+  const clubs = require('../db/clubs.json');
 
   return {
-    props: { teams },
+    props: { clubs },
   };
 }
