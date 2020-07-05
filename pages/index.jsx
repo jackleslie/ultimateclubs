@@ -22,6 +22,7 @@ import {
   MenuGroup,
   Radio,
   CloseButton,
+  Badge,
 } from '@chakra-ui/core';
 import { FaSortAlphaDown, FaSortAlphaUp, FaFilter } from 'react-icons/fa';
 
@@ -44,7 +45,8 @@ export default function Index({ teams }) {
   };
 
   const typeFilter = (({ type }) => (filter ? type === filter : true));
-  const searchFilter = (({ name }) => name.toLowerCase().indexOf(search.toLowerCase()) >= 0);
+  const searchFilter = (({ name, location }) => (
+    name.toLowerCase().indexOf(search.toLowerCase()) >= 0 || location.toLowerCase().indexOf(search.toLowerCase()) >= 0));
 
   const teamsFilteredLength = teams.filter(typeFilter).filter(searchFilter).length;
 
@@ -119,7 +121,7 @@ export default function Index({ teams }) {
         <Accordion allowMultiple width="100%">
           {teams.sort(alphabeticalSort).filter(typeFilter).filter(searchFilter).slice(...range)
             .map(({
-              name, type, url, location,
+              name, type, url, location, divisions,
             }, index) => (
               <AccordionItem key={`${name}-${index}`}>
                 <AccordionHeader>
@@ -132,7 +134,7 @@ export default function Index({ teams }) {
                   </Flex>
                 </AccordionHeader>
                 <AccordionPanel pb={4}>
-                  <Stack spacing={2}>
+                  <Stack spacing={3}>
                     <Box>
                       <Heading size="xs">UK Ultimate team URL</Heading>
                       <Link href={url} isExternal>
@@ -142,8 +144,18 @@ export default function Index({ teams }) {
                       </Link>
                     </Box>
                     <Box>
+                      <Heading size="xs">Divisions</Heading>
+                      {divisions.length > 0 ? (
+                        <Stack isInline mt={1}>
+                          {divisions.map((division) => (
+                            <Badge>{division}</Badge>
+                          ))}
+                        </Stack>
+                      ) : 'No divisions available'}
+                    </Box>
+                    <Box>
                       <Heading size="xs">Location</Heading>
-                      <Text>{location}</Text>
+                      <Box dangerouslySetInnerHTML={{ __html: `<address>${location}</address>` }} />
                     </Box>
                   </Stack>
                 </AccordionPanel>
@@ -157,7 +169,7 @@ export default function Index({ teams }) {
           <Text textAlign="center" fontSize={['sm', 'md']}>
             {showMessage()}
           </Text>
-          <Button rightIcon="arrow-forward" variantColor="gray" variant="outline" isDisabled={range[1] >= teamsFilteredLength} onClick={next}>
+          <Button rightIcon="arrow-forward" variantColor="gray" variant="outline" isDisabled={range[1] >= teamsFilteredLength - 1} onClick={next}>
             Next
           </Button>
         </Stack>
@@ -165,6 +177,10 @@ export default function Index({ teams }) {
           {`
           a {
             line-break: anywhere;
+          }
+
+          abbr {
+            text-decoration: none !important;
           }
         `}
         </style>
