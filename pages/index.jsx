@@ -21,6 +21,7 @@ import {
   InputGroup,
   MenuGroup,
   Radio,
+  RadioGroup,
   CloseButton,
   Badge,
   Checkbox,
@@ -32,7 +33,7 @@ export default function Index({ teams }) {
   const [rangeIncrement] = useState(20);
   const [range, setRange] = useState([0, rangeIncrement - 1]);
   const [ascending, setAscending] = useState(true);
-  const [typeFilter, setTypeFilter] = useState();
+  const [typeFilter, setTypeFilter] = useState('');
   const [divisionFilter, setDivisionFilter] = useState([]);
   const [search, setSearch] = useState('');
 
@@ -90,32 +91,25 @@ export default function Index({ teams }) {
             </MenuButton>
             <MenuList>
               <MenuGroup title="Type">
-                <Stack
+                <RadioGroup
                   spacing={0}
                   ml={4}
+                  onChange={handleTypeFilterChange}
+                  value={typeFilter}
                 >
-                  <Radio
-                    value="School"
-                    isChecked={typeFilter === 'School'}
-                    onChange={handleTypeFilterChange}
-                  >
+                  <Radio value="">
+                    Any
+                  </Radio>
+                  <Radio value="School">
                     School
                   </Radio>
-                  <Radio
-                    value="Club"
-                    isChecked={typeFilter === 'Club'}
-                    onChange={handleTypeFilterChange}
-                  >
+                  <Radio value="Club">
                     Club
                   </Radio>
-                  <Radio
-                    value="University"
-                    isChecked={typeFilter === 'University'}
-                    onChange={handleTypeFilterChange}
-                  >
+                  <Radio value="University">
                     University
                   </Radio>
-                </Stack>
+                </RadioGroup>
               </MenuGroup>
               <MenuGroup title="Divisions">
                 <CheckboxGroup
@@ -152,7 +146,7 @@ export default function Index({ teams }) {
                 variant="link"
                 fontWeight={400}
                 onClick={() => {
-                  setTypeFilter();
+                  setTypeFilter('');
                   setDivisionFilter([]);
                 }}
               >
