@@ -23,6 +23,7 @@ import {
   Radio,
   CloseButton,
   Badge,
+  Checkbox,
 } from '@chakra-ui/core';
 import { FaSortAlphaDown, FaSortAlphaUp, FaFilter } from 'react-icons/fa';
 
@@ -30,10 +31,14 @@ export default function Index({ teams }) {
   const [rangeIncrement] = useState(20);
   const [range, setRange] = useState([0, rangeIncrement - 1]);
   const [ascending, setAscending] = useState(true);
-  const [filter, setFilter] = useState();
+  const [typeFilter, setTypeFilter] = useState();
+  const [divisionFilter, setDivisionFilter] = useState([]);
   const [search, setSearch] = useState('');
 
-  const handleFilterChange = (e) => setFilter(e.target.value);
+  const handleTypeFilterChange = (e) => setTypeFilter(e.target.value);
+  const handleDivisionFilterChange = (e) => {
+    setDivisionFilter([...divisionFilter, e.target.value]);
+  };
   const handleSearchChange = (e) => setSearch(e.target.value);
 
   const next = () => setRange([range[0] + rangeIncrement, range[1] + rangeIncrement]);
@@ -44,11 +49,13 @@ export default function Index({ teams }) {
     return a.name.toLowerCase() > b.name.toLowerCase() ? x : y;
   };
 
-  const typeFilter = (({ type }) => (filter ? type === filter : true));
-  const searchFilter = (({ name, location }) => (
-    name.toLowerCase().indexOf(search.toLowerCase()) >= 0 || location.toLowerCase().indexOf(search.toLowerCase()) >= 0));
+  const typeFilterFunc = (({ type }) => (typeFilter ? type === typeFilter : true));
+  const divisionFilterFunc = (({ divisions }) => (divisionFilter.length > 0 ? (divisions.filter((division) => divisionFilter.includes(division)).length > 0) : true));
+  const searchFunc = (({ name, location }) => (
+    name.toLowerCase().indexOf(search.toLowerCase()) >= 0 || location.toLowerCase().indexOf(search.toLowerCase()) >= 0)
+  );
 
-  const teamsFilteredLength = teams.filter(typeFilter).filter(searchFilter).length;
+  const teamsFilteredLength = teams.filter(typeFilterFunc).filter(divisionFilterFunc).filter(searchFunc).length;
 
   const showMessage = () => (teamsFilteredLength > 0 ? (
     `${range[0] + 1}-${range[1] >= teamsFilteredLength ? teamsFilteredLength : range[1] + 1} of ${teamsFilteredLength}`
@@ -72,7 +79,7 @@ export default function Index({ teams }) {
             <Box as={ascending ? FaSortAlphaDown : FaSortAlphaUp} />
           </Button>
           <InputGroup width="100%">
-            <Input aria-label="Team name input" placeholder="Team name" value={search} onChange={handleSearchChange} />
+            <Input aria-label="Search input" placeholder="Search by team name or location" value={search} onChange={handleSearchChange} />
             {search.length > 0 ? (
               <InputRightElement>
                 <CloseButton onClick={() => setSearch('')} />
@@ -91,35 +98,96 @@ export default function Index({ teams }) {
                 >
                   <Radio
                     value="School"
-                    isChecked={filter === 'School'}
-                    onChange={handleFilterChange}
+                    isChecked={typeFilter === 'School'}
+                    onChange={handleTypeFilterChange}
                   >
                     School
                   </Radio>
                   <Radio
                     value="Club"
-                    isChecked={filter === 'Club'}
-                    onChange={handleFilterChange}
+                    isChecked={typeFilter === 'Club'}
+                    onChange={handleTypeFilterChange}
                   >
                     Club
                   </Radio>
                   <Radio
                     value="University"
-                    isChecked={filter === 'University'}
-                    onChange={handleFilterChange}
+                    isChecked={typeFilter === 'University'}
+                    onChange={handleTypeFilterChange}
                   >
                     University
                   </Radio>
                 </Stack>
-                <Button size="md" ml={4} mt={3} mb={2} variant="link" fontWeight={400} onClick={() => setFilter()}>
-                  Clear
-                </Button>
               </MenuGroup>
+              <MenuGroup title="Divisions">
+                <Stack
+                  spacing={0}
+                  ml={4}
+                >
+                  <Checkbox
+                    value="school"
+                    isChecked={divisionFilter.includes('school')}
+                    onChange={handleDivisionFilterChange}
+                  >
+                    School
+                  </Checkbox>
+                  <Checkbox
+                    value="uni"
+                    isChecked={divisionFilter.includes('uni')}
+                    onChange={handleDivisionFilterChange}
+                  >
+                    Uni
+                  </Checkbox>
+                  <Checkbox
+                    value="open"
+                    isChecked={divisionFilter.includes('open')}
+                    onChange={handleDivisionFilterChange}
+                  >
+                    Open
+                  </Checkbox>
+                  <Checkbox
+                    value="women's"
+                    isChecked={divisionFilter.includes('women\'s')}
+                    onChange={handleDivisionFilterChange}
+                  >
+                    Women
+                  </Checkbox>
+                  <Checkbox
+                    value="mixed"
+                    isChecked={divisionFilter.includes('mixed')}
+                    onChange={handleDivisionFilterChange}
+                  >
+                    Mixed
+                  </Checkbox>
+                  <Checkbox
+                    value="masters"
+                    isChecked={divisionFilter.includes('masters')}
+                    onChange={handleDivisionFilterChange}
+                  >
+                    Masters
+                  </Checkbox>
+                </Stack>
+              </MenuGroup>
+              <Button
+                size="md"
+                ml={4}
+                mt={3}
+                mb={2}
+                variant="link"
+                fontWeight={400}
+                onClick={() => {
+                  setTypeFilter();
+                  setDivisionFilter([]);
+                }}
+              >
+                Clear
+              </Button>
             </MenuList>
           </Menu>
         </Stack>
         <Accordion allowMultiple width="100%">
-          {teams.sort(alphabeticalSort).filter(typeFilter).filter(searchFilter).slice(...range)
+          {teams.sort(alphabeticalSort).filter(typeFilterFunc).filter(divisionFilterFunc).filter(searchFunc)
+            .slice(...range)
             .map(({
               name, type, url, location, divisions,
             }, index) => (
