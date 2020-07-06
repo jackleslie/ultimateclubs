@@ -28,8 +28,12 @@ import {
   CheckboxGroup,
   List,
   ListItem,
+  Divider,
+  useColorMode,
 } from '@chakra-ui/core';
-import { FaSortAlphaDown, FaSortAlphaDownAlt, FaFilter } from 'react-icons/fa';
+import {
+  FaSortAlphaDown, FaSortAlphaDownAlt, FaFilter, FaGithub, FaTwitter,
+} from 'react-icons/fa';
 import Head from 'next/head';
 
 export default function Index({ clubs }) {
@@ -39,6 +43,7 @@ export default function Index({ clubs }) {
   const [typeFilter, setTypeFilter] = useState('');
   const [divisionFilter, setDivisionFilter] = useState([]);
   const [search, setSearch] = useState('');
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const handleTypeFilterChange = (e) => setTypeFilter(e.target.value);
   const handleSearchChange = (e) => setSearch(e.target.value);
@@ -71,7 +76,15 @@ export default function Index({ clubs }) {
         <title>UK Ultimate Clubs</title>
       </Head>
       <Stack spacing={12} px={[4, 10, 20, 200]} pt={12} align="center" width="100%">
-        <Heading textAlign="center">UK Ultimate Clubs</Heading>
+        <Flex justify="space-between" align="center" width="100%">
+          <Stack spacing={0}>
+            <Heading fontSize={[20, 32]}>UK Ultimate Clubs</Heading>
+            <Heading fontWeight={500} fontSize={[12, 16]}>Find and search for ultimate teams in the UK</Heading>
+          </Stack>
+          <Button onClick={toggleColorMode} variant="ghost" p={0}>
+            {colorMode === 'light' ? <Icon name="moon" /> : <Icon name="sun" />}
+          </Button>
+        </Flex>
         <Stack isInline spacing={[2, 3, 4]} width="100%">
           <Button
             onClick={() => setAscending(!ascending)}
@@ -218,6 +231,30 @@ export default function Index({ clubs }) {
             Next
           </Button>
         </Stack>
+        <Divider width="100%" />
+        <Flex justify="space-between" align="center" width="100%" direction={['column', 'row']}>
+          <Text>
+            Developed with
+            {' '}
+            <span role="img" aria-label="Disc">🥏</span>
+            {' '}
+            by
+            {' '}
+            <Text as="b">
+              <Link isExternal href="https://jackleslie.dev">
+                Jack Leslie
+              </Link>
+            </Text>
+          </Text>
+          <Stack isInline spacing={2} mt={[3, 0]}>
+            <Link isExternal href="https://github.com/jackleslie/ultimateclubs">
+              <Box as={FaGithub} size={5} />
+            </Link>
+            <Link isExternal href="https://twitter.com/jackjdleslie">
+              <Box as={FaTwitter} size={5} />
+            </Link>
+          </Stack>
+        </Flex>
         <style jsx global>
           {`
           a {
