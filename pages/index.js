@@ -254,7 +254,7 @@ export default function Index({ clubs }) {
         </Stack>
         <Divider width="100%" />
         <Flex justify="space-between" align="center" width="100%" direction={['column', 'row']}>
-          <Text>
+          <Text fontSize={[14, 16]}>
             Developed with
             {' '}
             <span role="img" aria-label="Disc">🥏</span>
@@ -267,7 +267,7 @@ export default function Index({ clubs }) {
               </Link>
             </Text>
           </Text>
-          <Stack isInline spacing={2} mt={[3, 0]}>
+          <Stack isInline spacing={2} mt={[2, 0]}>
             <Link isExternal href="https://github.com/jackleslie/ultimateclubs">
               <Box as={FaGithub} size={5} />
             </Link>
