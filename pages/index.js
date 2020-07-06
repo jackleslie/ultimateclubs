@@ -46,7 +46,10 @@ export default function Index({ clubs }) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   const handleTypeFilterChange = (e) => setTypeFilter(e.target.value);
-  const handleSearchChange = (e) => setSearch(e.target.value);
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+    setRange([0, rangeIncrement - 1]);
+  };
 
   const next = () => setRange([range[0] + rangeIncrement, range[1] + rangeIncrement]);
   const prev = () => setRange([range[0] - rangeIncrement, range[1] - rangeIncrement]);
