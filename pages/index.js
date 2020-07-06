@@ -111,7 +111,7 @@ export default function Index({ clubs }) {
             <Box as={ascending ? FaSortAlphaDown : FaSortAlphaDownAlt} />
           </Button>
           <InputGroup width="100%">
-            <Input aria-label="Search input" placeholder="Search by club name or location" value={search} onChange={handleSearchChange} />
+            <Input aria-label="Search input" placeholder="Search by name or location" value={search} onChange={handleSearchChange} />
             {search.length > 0 ? (
               <InputRightElement>
                 <CloseButton onClick={() => setSearch('')} />
