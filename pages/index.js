@@ -213,11 +213,22 @@ export default function Index({ clubs }) {
                     <Box>
                       <Heading size="xs">URLs</Heading>
                       <List styleType="disc">
+                        {url && url !== 'No URL available' ? (
+                          <ListItem>
+                            <Link href={url} isExternal>
+                              UK Ultimate page
+                              {' '}
+                              <Icon name="external-link" mx="2px" />
+                            </Link>
+                          </ListItem>
+                        ) : (
+                          null
+                        )}
                         <ListItem>
-                          <Link href={url} isExternal>
-                            UK Ultimate
+                          <Link href={`https://www.google.com/search?q=${name}+ultimate+club`} isExternal>
+                            Google search result
                             {' '}
-                            {url !== 'No URL available' ? <Icon name="external-link" mx="2px" /> : null}
+                            <Icon name="external-link" mx="2px" />
                           </Link>
                         </ListItem>
                       </List>
