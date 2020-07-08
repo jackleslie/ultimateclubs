@@ -65,9 +65,9 @@ export default function Index({ clubs }) {
       ? (divisions.filter((division) => divisionFilter.includes(division)).length > 0)
       : true)
   );
-  const searchFunc = (({ name, location }) => (
+  const searchFunc = (({ name, address }) => (
     name.toLowerCase().indexOf(search.toLowerCase()) >= 0
-    || location.toLowerCase().indexOf(search.toLowerCase()) >= 0)
+    || address.join().toLowerCase().indexOf(search.toLowerCase()) >= 0)
   );
 
   const clubsFilteredLength = clubs
@@ -111,7 +111,7 @@ export default function Index({ clubs }) {
             <Box as={ascending ? FaSortAlphaDown : FaSortAlphaDownAlt} />
           </Button>
           <InputGroup width="100%">
-            <Input aria-label="Search input" placeholder="Search by name or location" value={search} onChange={handleSearchChange} />
+            <Input aria-label="Search input" placeholder="Search by name or address" value={search} onChange={handleSearchChange} />
             {search.length > 0 ? (
               <InputRightElement>
                 <CloseButton onClick={() => setSearch('')} />
@@ -196,7 +196,7 @@ export default function Index({ clubs }) {
             .filter(searchFunc)
             .slice(...range)
             .map(({
-              name, type, url, location, divisions,
+              name, type, ukultimate, website, email, address, divisions,
             }, index) => (
               <AccordionItem key={`${name}-${index}`}>
                 <AccordionHeader>
@@ -210,13 +210,42 @@ export default function Index({ clubs }) {
                 </AccordionHeader>
                 <AccordionPanel pb={4}>
                   <Stack spacing={3}>
+                    {divisions.filter((division) => division).length > 0 ? (
+                      <Box>
+                        <Heading size="xs">Divisions</Heading>
+                        <Stack isInline mt={1}>
+                          {divisions.map((division) => (
+                            <Badge key={division}>{division}</Badge>
+                          ))}
+                        </Stack>
+                      </Box>
+                    ) : null}
+                    {address.filter((line) => line).length > 0 ? (
+                      <Box>
+                        <Heading size="xs">Address</Heading>
+                        <address>
+                          {address.map((line, i) => <Text key={i}>{line}</Text>)}
+                        </address>
+                      </Box>
+                    ) : null}
                     <Box>
-                      <Heading size="xs">URLs</Heading>
+                      <Heading size="xs">Links</Heading>
                       <List styleType="disc">
-                        {url && url !== 'No URL available' ? (
+                        {ukultimate ? (
                           <ListItem>
-                            <Link href={url} isExternal>
+                            <Link href={ukultimate} isExternal>
                               UK Ultimate page
+                              {' '}
+                              <Icon name="external-link" mx="2px" />
+                            </Link>
+                          </ListItem>
+                        ) : (
+                          null
+                        )}
+                        {website ? (
+                          <ListItem>
+                            <Link href={website} isExternal>
+                              Website
                               {' '}
                               <Icon name="external-link" mx="2px" />
                             </Link>
@@ -233,20 +262,12 @@ export default function Index({ clubs }) {
                         </ListItem>
                       </List>
                     </Box>
-                    <Box>
-                      <Heading size="xs">Divisions</Heading>
-                      {divisions.length > 0 ? (
-                        <Stack isInline mt={1}>
-                          {divisions.map((division) => (
-                            <Badge>{division}</Badge>
-                          ))}
-                        </Stack>
-                      ) : 'No divisions available'}
-                    </Box>
-                    <Box>
-                      <Heading size="xs">Location</Heading>
-                      <Box dangerouslySetInnerHTML={{ __html: `<address>${location}</address>` }} />
-                    </Box>
+                    {email ? (
+                      <Box>
+                        <Heading size="xs">Email</Heading>
+                        <Text>{email}</Text>
+                      </Box>
+                    ) : null}
                   </Stack>
                 </AccordionPanel>
               </AccordionItem>
