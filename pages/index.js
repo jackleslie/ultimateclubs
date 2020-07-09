@@ -62,12 +62,12 @@ export default function Index({ clubs }) {
   const typeFilterFunc = (({ type }) => (typeFilter ? type === typeFilter : true));
   const divisionFilterFunc = (({ divisions }) => (
     divisionFilter.length > 0
-      ? (divisions.filter((division) => divisionFilter.includes(division)).length > 0)
+      ? (divisions?.filter((division) => divisionFilter.includes(division)).length > 0)
       : true)
   );
   const searchFunc = (({ name, address }) => (
     name.toLowerCase().indexOf(search.toLowerCase()) >= 0
-    || address.join().toLowerCase().indexOf(search.toLowerCase()) >= 0)
+    || address?.join().toLowerCase().indexOf(search.toLowerCase()) >= 0)
   );
 
   const clubsFilteredLength = clubs
@@ -210,7 +210,7 @@ export default function Index({ clubs }) {
                 </AccordionHeader>
                 <AccordionPanel pb={4}>
                   <Stack spacing={3}>
-                    {divisions.filter((division) => division).length > 0 ? (
+                    {divisions?.filter((division) => division).length > 0 ? (
                       <Box>
                         <Heading size="xs">Divisions</Heading>
                         <Stack isInline mt={1}>
@@ -220,7 +220,7 @@ export default function Index({ clubs }) {
                         </Stack>
                       </Box>
                     ) : null}
-                    {address.filter((line) => line).length > 0 ? (
+                    {address?.filter((line) => line).length > 0 ? (
                       <Box>
                         <Heading size="xs">Address</Heading>
                         <address>
@@ -325,9 +325,9 @@ export default function Index({ clubs }) {
 }
 
 export async function getStaticProps() {
-  // eslint-disable-next-line global-require
-  const clubs = require('../db/clubs.json');
-
+  // eslint-disable-next-line no-undef
+  const clubs = await fetch(process.env.API_URL)
+    .then((res) => res.json());
   return {
     props: { clubs },
   };
