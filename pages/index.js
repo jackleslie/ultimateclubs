@@ -284,9 +284,7 @@ export default function Index({ clubs }) {
         <Divider width="100%" />
         <Flex justify="space-between" align="center" width="100%" direction={['column', 'row']}>
           <Text fontSize={[14, 16]}>
-            Developed with
-            {' '}
-            <span role="img" aria-label="Disc">🥏</span>
+            Developed
             {' '}
             by
             {' '}
