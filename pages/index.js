@@ -29,7 +29,6 @@ import {
   List,
   ListItem,
   Divider,
-  useColorMode,
 } from '@chakra-ui/core';
 import {
   FaSortAlphaDown, FaSortAlphaDownAlt, FaFilter, FaGithub, FaTwitter,
@@ -43,7 +42,6 @@ export default function Index({ clubs }) {
   const [typeFilter, setTypeFilter] = useState('');
   const [divisionFilter, setDivisionFilter] = useState([]);
   const [search, setSearch] = useState('');
-  const { colorMode, toggleColorMode } = useColorMode();
 
   const handleTypeFilterChange = (e) => setTypeFilter(e.target.value);
   const handleSearchChange = (e) => {
@@ -87,7 +85,7 @@ export default function Index({ clubs }) {
         <title>UK Ultimate Clubs</title>
       </Head>
       <Stack spacing={12} px={[4, 10, 20, 200]} pt={12} align="center" width="100%">
-        <Flex justify="space-between" align="center" width="100%">
+        <Flex align="center" width="100%">
           <Stack spacing={0}>
             <Heading fontSize={[20, 32]}>UK Ultimate Clubs</Heading>
             <Heading
@@ -95,12 +93,8 @@ export default function Index({ clubs }) {
               fontSize={[12, 16]}
             >
               Find and search for ultimate teams in the UK
-
             </Heading>
           </Stack>
-          <Button onClick={toggleColorMode} variant="ghost" p={0}>
-            {colorMode === 'light' ? <Icon name="moon" /> : <Icon name="sun" />}
-          </Button>
         </Flex>
         <Stack isInline spacing={[2, 3, 4]} width="100%">
           <Button
