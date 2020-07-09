@@ -231,7 +231,7 @@ export default function Index({ clubs }) {
                         {ukultimate ? (
                           <ListItem>
                             <Link href={ukultimate} isExternal>
-                              UK Ultimate page
+                              UK Ultimate
                               {' '}
                               <Icon name="external-link" mx="2px" />
                             </Link>
@@ -252,7 +252,7 @@ export default function Index({ clubs }) {
                         )}
                         <ListItem>
                           <Link href={`https://www.google.com/search?q=${name}+ultimate+club`} isExternal>
-                            Google search result
+                            Google
                             {' '}
                             <Icon name="external-link" mx="2px" />
                           </Link>
@@ -262,7 +262,7 @@ export default function Index({ clubs }) {
                     {email ? (
                       <Box>
                         <Heading size="xs">Email</Heading>
-                        <Text>{email}</Text>
+                        <Link href={`mailto:${email}`}>{email}</Link>
                       </Box>
                     ) : null}
                   </Stack>
