@@ -86,14 +86,17 @@ export default function Index({ clubs }) {
       </Head>
       <Stack spacing={12} px={[4, 10, 20, 200]} pt={12} align="center" width="100%">
         <Flex align="center" width="100%">
-          <Stack spacing={0}>
-            <Heading fontSize={[20, 32]}>UK Ultimate Clubs</Heading>
-            <Heading
-              fontWeight={500}
-              fontSize={[12, 16]}
-            >
-              Find and search for ultimate teams in the UK
-            </Heading>
+          <Stack isInline spacing={4} align="center">
+            <Heading><span role="img" aria-label="Disc Emoji">🥏</span></Heading>
+            <Box>
+              <Heading fontSize={[20, 32]}>UK Ultimate Clubs</Heading>
+              <Heading
+                fontWeight={500}
+                fontSize={[12, 16]}
+              >
+                Find and search for ultimate clubs in the UK
+              </Heading>
+            </Box>
           </Stack>
         </Flex>
         <Stack isInline spacing={[2, 3, 4]} width="100%">
