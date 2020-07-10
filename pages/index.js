@@ -10,7 +10,6 @@ import {
   Stack,
   Flex,
   Box,
-  Link,
   Icon,
   Button,
   Menu,
@@ -230,39 +229,39 @@ export default function Index({ clubs }) {
                       <List styleType="disc">
                         {ukultimate ? (
                           <ListItem>
-                            <Link href={ukultimate} isExternal>
+                            <a target="_blank" rel="noopener noreferrer" href={ukultimate}>
                               UK Ultimate
                               {' '}
                               <Icon name="external-link" mx="2px" />
-                            </Link>
+                            </a>
                           </ListItem>
                         ) : (
                           null
                         )}
                         {website ? (
                           <ListItem>
-                            <Link href={website} isExternal>
+                            <a target="_blank" rel="noopener noreferrer" href={website}>
                               Website
                               {' '}
                               <Icon name="external-link" mx="2px" />
-                            </Link>
+                            </a>
                           </ListItem>
                         ) : (
                           null
                         )}
                         <ListItem>
-                          <Link href={`https://www.google.com/search?q=${name}+ultimate+club`} isExternal>
+                          <a target="_blank" rel="noopener noreferrer" href={`https://www.google.com/search?q=${name}+ultimate+club`}>
                             Google
                             {' '}
                             <Icon name="external-link" mx="2px" />
-                          </Link>
+                          </a>
                         </ListItem>
                       </List>
                     </Box>
                     {email ? (
                       <Box>
                         <Heading size="xs">Email</Heading>
-                        <Link href={`mailto:${email}`}>{email}</Link>
+                        <a target="_blank" rel="noopener noreferrer" href={`mailto:${email}`}>{email}</a>
                       </Box>
                     ) : null}
                   </Stack>
@@ -287,24 +286,32 @@ export default function Index({ clubs }) {
             Incorrect or missing club?
             {' '}
             <Text as="b">
-              <Link isExternal href="mailto:info@ultimateclubs.co.uk">
+              <a href="mailto:info@ultimateclubs.co.uk">
                 Get in touch
-              </Link>
+              </a>
             </Text>
           </Text>
           <Stack isInline spacing={2}>
-            <Link isExternal href="https://github.com/jackleslie/ultimateclubs">
-              <Box as={FaGithub} size={5} />
-            </Link>
-            <Link isExternal href="https://twitter.com/jackjdleslie">
-              <Box as={FaTwitter} size={5} />
-            </Link>
+            <Box>
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/jackleslie/ultimateclubs">
+                <Box as={FaGithub} size={5} />
+              </a>
+            </Box>
+            <Box>
+              <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/jackjdleslie">
+                <Box as={FaTwitter} size={5} />
+              </a>
+            </Box>
           </Stack>
         </Flex>
         <style jsx global>
           {`
           a {
             line-break: anywhere;
+          }
+
+          a:hover {
+            text-decoration: underline;
           }
 
           abbr {
