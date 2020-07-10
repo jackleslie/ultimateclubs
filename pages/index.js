@@ -93,7 +93,7 @@ export default function Index({ clubs }) {
                 fontWeight={500}
                 fontSize={[12, 16]}
               >
-                Find and search for ultimate clubs in the UK
+                Find and search for Ultimate clubs in the UK
               </Heading>
             </Box>
           </Stack>
