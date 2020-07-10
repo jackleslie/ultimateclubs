@@ -306,16 +306,8 @@ export default function Index({ clubs }) {
         </Flex>
         <style jsx global>
           {`
-          a {
-            line-break: anywhere;
-          }
-
           a:hover {
             text-decoration: underline;
-          }
-
-          abbr {
-            text-decoration: none !important;
           }
         `}
         </style>
