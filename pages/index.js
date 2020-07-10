@@ -282,19 +282,17 @@ export default function Index({ clubs }) {
           </Button>
         </Stack>
         <Divider width="100%" />
-        <Flex justify="space-between" align="center" width="100%" direction={['column', 'row']}>
-          <Text fontSize={[14, 16]}>
-            Developed
-            {' '}
-            by
+        <Flex justify="space-between" align="center" width="100%" flexWrap="wrap" direction={['column', 'row']}>
+          <Text fontSize={[14, 16]} mb={[2, 0]}>
+            Incorrect or missing club?
             {' '}
             <Text as="b">
-              <Link isExternal href="https://jackleslie.dev">
-                Jack Leslie
+              <Link isExternal href="mailto:info@ultimateclubs.co.uk">
+                Get in touch
               </Link>
             </Text>
           </Text>
-          <Stack isInline spacing={2} mt={[2, 0]}>
+          <Stack isInline spacing={2}>
             <Link isExternal href="https://github.com/jackleslie/ultimateclubs">
               <Box as={FaGithub} size={5} />
             </Link>

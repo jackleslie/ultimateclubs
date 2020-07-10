@@ -8,15 +8,23 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          {/* Meta */}
           <meta charSet="utf-8" />
-          <meta name="description" content="UK Ultimate Clubs" />
+          <meta name="description" content="Find and search for Ultimate clubs in the UK" />
           <meta name="author" content="Jack Leslie" />
-          <meta property="og:image" content="/favicon.ico" />
-          <meta
-            property="og:description"
-            content="Find and search for Ultimate clubs in the UK"
-          />
-          <meta property="og:title" content="UK Ultimate Clubs" />
+
+          {/* Twitter */}
+          <meta name="twitter:card" content="summary" key="twcard" />
+          <meta name="twitter:creator" content="@jackjdleslie" key="twhandle" />
+
+          {/* Open Graph */}
+          <meta property="og:url" content="https://ultimateclubs.co.uk/" key="ogurl" />
+          <meta property="og:image" content="https://ultimateclubs.co.uk/favicon.png" key="ogimage" />
+          <meta property="og:site_name" content="UK Ultimate Clubs" key="ogsitename" />
+          <meta property="og:title" content="UK Ultimate Clubs" key="ogtitle" />
+          <meta property="og:description" content="Find and search for Ultimate clubs in the UK" key="ogdesc" />
+
+          {/* Links */}
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <body>
