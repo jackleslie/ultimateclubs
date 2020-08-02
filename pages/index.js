@@ -241,7 +241,7 @@ export default function Index({ clubs }) {
                         {website ? (
                           <ListItem>
                             <a target="_blank" rel="noopener noreferrer" href={website}>
-                              Website
+                              {website.includes('facebook') ? 'Facebook' : 'Website'}
                               {' '}
                               <Icon name="external-link" mx="2px" />
                             </a>
